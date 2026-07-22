@@ -4,7 +4,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        // Ye line .NET ko bolegi ke properties ke naam camelCase (jaise name, imageUrl) mein bheje
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    });
 
 // Connection string (filhal local SQL Express ya LocalDB use kar rahe hain)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
